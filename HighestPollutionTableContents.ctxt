@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=HighestPollutionTableContents
+comment0.text=\r\n\ Contains\ all\ the\ information\ that\ the\ highest\ pollution\ levels\ table\ should\ contain.\r\n\r\n\ @author\ Maria\ Plesinska\ \r\n\ @version\ 1.0\r\n
+comment1.params=pollutionType\ pollutionLevel\ gridCode\ x\ y
+comment1.target=HighestPollutionTableContents(java.lang.String,\ double,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ PollutionTableContents\r\n
+comment10.params=x
+comment10.target=void\ setX(int)
+comment11.params=y
+comment11.target=void\ setY(int)
+comment2.params=
+comment2.target=java.lang.String\ getPollutionType()
+comment3.params=
+comment3.target=double\ getPollutionLevel()
+comment4.params=
+comment4.target=int\ getGridCode()
+comment5.params=
+comment5.target=int\ getX()
+comment6.params=
+comment6.target=int\ getY()
+comment7.params=pollutionType
+comment7.target=void\ setPollutionType(java.lang.String)
+comment8.params=pollutionLevel
+comment8.target=void\ setPollutionLevel(double)
+comment9.params=gridCode
+comment9.target=void\ setGridCode(int)
+numComments=12

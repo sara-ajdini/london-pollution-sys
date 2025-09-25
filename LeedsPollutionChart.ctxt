@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=LeedsPollutionChart
+comment0.text=\n\ LeedsPollutionChart\ creates\ a\ bar\ chart\ for\ Leeds\ pollution\ levels.\n\ It\ retrieves\ filtered\ data\ points\ within\ Leeds\ and\ sets\ a\ title.\n\ \n\n\ @author\ Sara\ Ajdini\n\ @version\ 1\n
+comment1.params=data
+comment1.target=LeedsPollutionChart(DataFiles)
+comment1.text=\n\ Constructor\ for\ LeedsPollutionChart.\n\ \n\ @param\ data\ A\ instance\ of\ DataFiles\ used\ for\ \n\ retrieving\ pollution\ data.\n
+comment2.params=year\ pollutant
+comment2.target=java.util.List\ getDataPoints(java.lang.String,\ java.lang.String)
+comment2.text=\n\ Retrieves\ the\ filtered\ data\ points\ for\ a\ given\ year\ and\n\ pollutant\ for\ Leeds.\n\ \n\ @param\ the\ data\ of\ that\ year\n\ @param\ the\ data\ of\ that\ pollutant\ type\ \n\ @return\ a\ list\ of\ DataPoints\n
+comment3.params=
+comment3.target=void\ setTitle()
+comment3.text=\n\ Overrides\ and\ Sets\ the\ chart\ title\ for\ Leeds\ Pollution\ Levels\n
+numComments=4

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=OxfordPollutionChart
+comment0.text=\n\ OxfordPollutionChart\ creates\ a\ bar\ chart\ for\ Oxford\ pollution\ levels.\n\ It\ retrieves\ filtered\ data\ points\ within\ Oxford\ and\ sets\ a\ title.\n\ \n\n\ @author\ Sara\ Ajdini\n\ @version\ 1\n
+comment1.params=data
+comment1.target=OxfordPollutionChart(DataFiles)
+comment1.text=\n\ Constructor\ for\ OxfordPollutionChart.\n\ \n\ @param\ data\ A\ instance\ of\ DataFiles\ used\ for\ \n\ retrieving\ pollution\ data.\n
+comment2.params=year\ pollutant
+comment2.target=java.util.List\ getDataPoints(java.lang.String,\ java.lang.String)
+comment2.text=\n\ Retrieves\ the\ filtered\ data\ points\ for\ a\ given\ year\ and\n\ pollutant\ for\ Oxford.\n\ \n\ @param\ the\ data\ of\ that\ year\n\ @param\ the\ data\ of\ that\ pollutant\ type\ \n\ @return\ a\ list\ of\ DataPoints\n
+comment3.params=
+comment3.target=void\ setTitle()
+comment3.text=\n\ Overrides\ and\ Sets\ the\ chart\ title\ for\ Oxford\ Pollution\ Levels\n
+numComments=4

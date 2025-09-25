@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=AirQualityApp
+comment1.params=primaryStage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=selectedCity
+comment2.target=void\ updateAirQualityData(java.lang.String)
+comment2.text=\n\ Updates\ the\ air\ quality\ data\ display\ for\ the\ selected\ city\n
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+numComments=4

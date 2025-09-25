@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=LeedsMapPage
+comment0.text=\n\ Contains\ methods\ and\ data\ specific\ to\ the\ leeds\ map.\n\n\ @author\ Layla\ Abdelmaksoud\ &\ Sara\ Ajdini\n\ @version\ 1.0\n
+comment1.params=dataFiles
+comment1.target=LeedsMapPage(DataFiles)
+comment2.params=
+comment2.target=java.util.List\ getDataPoints()
+comment2.text=\n\ returns\ Leeds\ data\ points\ for\ current\ year\ and\ pollutant\ \n\ \n\ @return\ List\ of\ datapoints\n
+comment3.params=
+comment3.target=java.lang.String\ getMapImagePath()
+comment4.params=
+comment4.target=int\ getOriginX()
+comment5.params=
+comment5.target=int\ getOriginY()
+comment6.params=
+comment6.target=int\ getMaxX()
+comment7.params=
+comment7.target=int\ getMaxY()
+numComments=8

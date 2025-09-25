@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=TabController
+comment0.text=\r\n\ Allows\ for\ tab\ switch\ commands\ to\ be\ added\ to\ any\ class.\r\n\r\n\ @author\ Layla\ Abdelmaksoud\r\n\ @version\ 1.0\r\n
+comment1.params=tp
+comment1.target=TabController(javafx.scene.control.TabPane)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ TabController\r\n
+comment2.params=x
+comment2.target=void\ switchTab(int)
+comment2.text=\r\nSwitches\ to\ specified\ tab\ index\r\n
+comment3.params=
+comment3.target=void\ nextTab()
+comment3.text=\r\nSwitches\ to\ next\ tab\r\n
+comment4.params=tab
+comment4.target=void\ removeTab(javafx.scene.control.Tab)
+comment4.text=\r\n\ Removes\ a\ given\ tab\r\n\ \r\n\ @param\ tab\ to\ be\ removed\r\n
+comment5.params=
+comment5.target=java.util.List\ getTabs()
+comment5.text=\r\n\ Returns\ list\ of\ tabs\ in\ the\ tabpane\r\n\ \r\n\ @return\ tab\ list\r\n
+numComments=6

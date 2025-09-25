@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=AirQualityDisplay
+comment0.text=\n\ Displays\ air\ quality\ data\ for\ a\ selected\ city.\n\ City\ selection\ and\ refresh\ are\ triggered\ externally\ by\ the\ main\ GUI.\n\ \n\ @author\ Muhlisa\ Husainova\n\ @version\ 1.0\n
+comment1.params=api
+comment1.target=AirQualityDisplay(AirQualityAPI)
+comment1.text=\n\ Constructor\ that\ initializes\ with\ the\ API\ handler.\n\ @param\ api\ An\ instance\ of\ AirQualityAPI\ class\n
+comment2.params=city
+comment2.target=void\ refreshData(java.lang.String)
+comment2.text=\n\ Refreshes\ data\ display\ for\ the\ selected\ city.\n\ This\ should\ be\ called\ by\ the\ main\ GUI\ with\ the\ selected\ city.\n\ @param\ city\ Name\ of\ the\ city\ ("London",\ "Oxford",\ "Leeds",\ etc.)\n
+comment3.params=
+comment3.target=javafx.scene.layout.HBox\ getAirQualityHBox()
+comment4.params=
+comment4.target=javafx.scene.layout.Pane\ getRootPane()
+numComments=5

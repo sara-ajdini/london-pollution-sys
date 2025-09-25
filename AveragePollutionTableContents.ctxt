@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=AveragePollutionTableContents
+comment0.text=\r\n\ Contains\ all\ the\ information\ that\ the\ average\ pollution\ level\ tables\ should\ contain.\r\n\r\n\ @author\ Maria\ Plesinska\r\n\ @version\ 1.0\r\n
+comment1.params=pollutionType\ pollutionLevel
+comment1.target=AveragePollutionTableContents(java.lang.String,\ double)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ AveragePollutionTableContents\r\n
+comment2.params=
+comment2.target=java.lang.String\ getPollutionType()
+comment3.params=
+comment3.target=double\ getPollutionLevel()
+comment4.params=pollutionType
+comment4.target=void\ setPollutionType(java.lang.String)
+comment5.params=pollutionLevel
+comment5.target=void\ setPollutionLevel(double)
+numComments=6

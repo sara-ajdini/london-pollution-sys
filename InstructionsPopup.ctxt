@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=InstructionsPopup
+comment0.text=\r\n\ Abstract\ class\ that\ provides\ a\ template\ for\ displaying\ content\ of\ instruction\ alerts.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=text
+comment1.target=InstructionsPopup(java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ InstructionTemplate\r\n
+comment2.params=
+comment2.target=void\ show()
+comment2.text=\r\n\ Displays\ the\ instruction\ alert\ dialog.\r\n
+numComments=3

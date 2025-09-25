@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=LondonPollutionChartTest
+comment0.text=\n\ Test\ class\ for\ LondonPollutionChart.\n\ This\ class\ verifies\ that\ the\ LondonPollutionChart\ is\ correctly\ initialised,\n\ that\ valid\ and\ invalid\ filtering\ entries\ are\ handled,\ and\ that\ null\ or\ empty\n\ inputs\ throw\ the\ correct\ exceptions.\n\ \n\ @author\ Sara\ Ajdini\n\ @version\ 1.0\n
+comment1.params=
+comment1.target=LondonPollutionChartTest()
+comment1.text=\n\ Default\ constructor\ for\ test\ class\ LondonPollutionChartTest.\n
+comment2.params=
+comment2.target=void\ setUp()
+comment2.text=\n\ Sets\ up\ the\ test\ fixture.\n\n\ Called\ before\ every\ test\ case\ method.\n
+comment3.params=
+comment3.target=void\ testChartInitialisation()
+comment3.text=\n\ Tests\ that\ the\ chart\ components\ are\ properly\ initialised.\n\ Verifies\ that\ the\ root\ pane,\ BarChart,\ and\ data\ are\ not\ null.\n
+comment4.params=
+comment4.target=void\ testisValidEntryTrue()
+comment4.text=\n\ Tests\ that\ valid\ entries\ return\ true.\n\ Including\ lowercase\ and\ uppercase\ entries\n
+comment5.params=
+comment5.target=void\ testIsValidEntryFalse()
+comment5.text=\n\ Tests\ that\ invalid\ entries\ return\ false.\n\ Including\ entries\ that\ are\ not\ included\ in\ the\ list\ of\ accepted\n\ years\ and\ pollutants\n
+comment6.params=
+comment6.target=void\ testIsValidEntryNullorEmpty()
+comment6.text=\n\ Tests\ that\ null\ or\ empty\ input\ values\ throw\ \n\ IllegalArgumentException.\n
+comment7.params=
+comment7.target=void\ tearDown()
+comment7.text=\n\ Tears\ down\ the\ test\ fixture.\n\n\ Called\ after\ every\ test\ case\ method.\n
+numComments=8

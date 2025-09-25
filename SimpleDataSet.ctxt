@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=SimpleDataSet
+comment0.text=\n\ The\ Simple\ Data\ Set\ is\ a\ simplified\ version\ of\ the\ Data\ Set\ containing\ only\ the\ information\ the\ rest\ of\ the\ classes\ will\ use.\n\ \n\ @author\ Michael\ K\u00F6lling\n\ @version\ 1.0\n
+comment1.params=pollutant\ year
+comment1.target=SimpleDataSet(java.lang.String,\ java.lang.String)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ DataSet\n
+comment2.params=
+comment2.target=java.lang.String\ getPollutant()
+comment2.text=\n\ Return\ the\ pollutant\ information\ for\ this\ dataset.\n
+comment3.params=
+comment3.target=java.lang.String\ getYear()
+comment3.text=\n\ Return\ the\ year\ information\ for\ this\ dataset.\n
+comment4.params=
+comment4.target=java.util.List\ getData()
+comment4.text=\n\ Return\ the\ data\ points\ of\ this\ dataset.\n
+comment5.params=dataPoint
+comment5.target=void\ addData(DataPoint)
+numComments=6
