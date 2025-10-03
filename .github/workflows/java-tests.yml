@@ -20,6 +20,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Install Xvfb and GTK deps (for JavaFX)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgtk-3-0 libxext6 libxi6 libxtst6 libasound2 libgl1-mesa-glx
+
       - name: Download JavaFX SDK (Linux x64)
         run: |
           curl -L -o openjfx.zip \
@@ -52,32 +57,24 @@ jobs:
             -d out \
             $SRC_FILES
 
-      - name: Create CI bootstrap to init JavaFX (not added to repo)
+      - name: Bootstrap JavaFX then run JUnit (headless via Xvfb)
         shell: bash
         run: |
+          # small bootstrap to init JavaFX Toolkit before JUnit scans classpath
           cat > out/CiTestRunner.java <<'EOF'
           import javafx.application.Platform;
           public class CiTestRunner {
             public static void main(String[] args) {
-              // Headless-ish settings to avoid GPU/display requirements
-              System.setProperty("javafx.platform", "Monocle");
-              System.setProperty("monocle.platform", "Headless");
-              System.setProperty("prism.order", "sw");
-
-              // Initialise JavaFX Toolkit (no Swing needed)
               final Object lock = new Object();
               synchronized (lock) {
-                Platform.startup(() -> {
-                  synchronized (lock) { lock.notify(); }
-                });
+                Platform.startup(() -> { synchronized (lock) { lock.notify(); } });
                 try { lock.wait(); } catch (InterruptedException ignored) {}
               }
-
-              // Run JUnit Console
-              org.junit.platform.console.ConsoleLauncher.main(new String[]{"--scan-class-path"});
+              org.junit.platform.console.ConsoleLauncher.main(new String[] {"--scan-class-path"});
             }
           }
           EOF
+
           javac \
             --release 17 \
             --module-path "$JFX_LIB" \
@@ -85,11 +82,9 @@ jobs:
             -cp "out:lib/junit-console.jar:lib/json.jar" \
             -d out \
             out/CiTestRunner.java
-          rm out/CiTestRunner.java
 
-      - name: Run tests (JavaFX initialised)
-        shell: bash
-        run: |
+          # run under a virtual X display so JavaFX can open a toolkit
+          xvfb-run -a \
           java \
             --module-path "$JFX_LIB" \
             --add-modules javafx.controls,javafx.fxml,javafx.graphics \
