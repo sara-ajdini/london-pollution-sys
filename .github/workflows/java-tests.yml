@@ -23,8 +23,19 @@ jobs:
       - name: Install Xvfb and GTK deps (for JavaFX)
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libgtk-3-0 libxext6 libxi6 libxtst6 libasound2 libgl1-mesa-glx
-
+          sudo apt-get install -y \
+            xvfb \
+            libgtk-3-0 \
+            libxext6 \
+            libxi6 \
+            libxtst6 \
+            libxrender1 \
+            libxrandr2 \
+            libxcomposite1 \
+            libxdamage1 \
+            libnss3 \
+            libgl1 \
+            libasound2t64
       - name: Download JavaFX SDK (Linux x64)
         run: |
           curl -L -o openjfx.zip \
