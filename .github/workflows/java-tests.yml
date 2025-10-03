@@ -1,0 +1,75 @@
+name: JUnit Tests (plain javac)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Temurin JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Prepare dirs
+        run: mkdir -p out out-test lib
+
+      - name: Download JavaFX SDK
+        run: |
+          JFX_VER=17.0.12
+          curl -L -o javafx.zip "https://download2.gluonhq.com/openjfx/${JFX_VER}/openjfx-${JFX_VER}_osx-aarch64_bin-sdk.zip"
+          unzip -q javafx.zip
+          echo "JAVA_FX=$(pwd)/javafx-sdk-${JFX_VER}/lib" >> $GITHUB_ENV
+
+      - name: Download test/runtime jars
+        run: |
+          # org.json (runtime for your code)
+          curl -L -o lib/json.jar "https://repo1.maven.org/maven2/org/json/json/20240303/json-20240303.jar"
+          # JUnit 5 console launcher (no build tool needed)
+          curl -L -o lib/junit-platform-console-standalone.jar \
+            "https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar"
+
+      - name: Compile production sources
+        shell: bash
+        run: |
+          SRC_FILES=$(ls *.java 2>/dev/null | grep -v "Test.java" || true)
+          if [ -n "$SRC_FILES" ]; then
+            javac \
+              --module-path "$JAVA_FX" --add-modules javafx.controls,javafx.fxml \
+              -cp lib/json.jar \
+              -d out $SRC_FILES
+          else
+            echo "No non-test sources to compile."
+          fi
+
+      - name: Compile test sources (*Test.java)
+        shell: bash
+        run: |
+          TEST_FILES=$(ls *Test.java 2>/dev/null || true)
+          if [ -n "$TEST_FILES" ]; then
+            javac \
+              --module-path "$JAVA_FX" --add-modules javafx.controls,javafx.fxml \
+              -cp "out:lib/json.jar:lib/junit-platform-console-standalone.jar" \
+              -d out-test $TEST_FILES
+          else
+            echo "No tests found."
+          fi
+
+      - name: Run JUnit
+        shell: bash
+        run: |
+          if ls out-test/*.class >/dev/null 2>&1; then
+            java -Djava.awt.headless=true -Dprism.order=sw \
+              --module-path "$JAVA_FX" --add-modules javafx.controls,javafx.fxml \
+              -jar lib/junit-platform-console-standalone.jar \
+              --class-path "out:out-test:lib/json.jar" \
+              --scan-classpath
+          else
+            echo "No compiled tests to run."
+          fi
