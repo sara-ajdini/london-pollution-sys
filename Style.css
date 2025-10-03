@@ -1,0 +1,337 @@
+/* --- Welcome Buttons --- */
+.welcomeButtons {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-alignment: center;
+    -fx-background-color: linear-gradient(to bottom, #42A5F5, #1E88E5);
+}
+
+.welcomeButtons:hover {
+    -fx-background-color: #1565C0;
+    -fx-border-color: #0D47A1;
+    -fx-effect: dropshadow(gaussian, #102027, 6, 0.3, 1, 1);
+}
+
+.welcomeLabels {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+.welcomeLayout {
+    -fx-background-color: rgba(21, 101, 192, 0.2);
+    -fx-padding: 20;
+}
+
+.welcomeTopHBox {
+    -fx-background-color: linear-gradient(to right, #1565C0, #1976D2);
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-border-radius: 6px;
+}
+
+.welcomeTopHBox Button {
+    -fx-background-color: #42A5F5;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 4 10;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 12px;
+}
+
+.welcomeTopHBox Button:hover {
+    -fx-background-color: #1E88E5;
+    
+}
+
+
+
+/* --- HBox and VBox for Filters --- */
+.filters {
+    -fx-background-color: linear-gradient(to right, #1565C0, #1976D2);
+    -fx-alignment: center-left;
+    -fx-border-insets: 0;
+    -fx-spacing: 10;
+}
+
+.filters Label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+Button {
+    -fx-background-color: #42A5F5;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+Button:hover {
+    -fx-background-color: #1E88E5;
+}
+
+.check-box {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.check-box .box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #0D47A1;
+}
+
+.check-box:hover .box {
+    -fx-background-color: #64B5F6;
+}
+
+/* --- ComboBox Styling */
+.combo-box {
+    -fx-background-color: #42A5F5;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-color: #1E88E5;
+    -fx-border-radius: 3px;
+}
+
+.combo-box:hover {
+    -fx-background-color: #1E88E5;
+}
+
+.combo-box .list-cell{
+    -fx-background-color: #1565C0;
+    -fx-text-fill: #ffffff;
+}
+
+
+.combo-box .list-cell:filled:hover{
+    -fx-background-color: #1E88E5;
+    -fx-text-fill: #ffffff;
+}
+
+
+.combo-box .list-cell:filled:selected{
+    -fx-background-color: #42A5F5;
+    -fx-text-fill: #ffffff;
+}
+
+/* --- TabPane Styling --- */
+.tab-pane {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #0D47A1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #ffffff;
+}
+
+.tab {
+    -fx-background-color: #1565C0;
+    -fx-padding: 6 16;
+    -fx-background-radius: 4px;
+}
+
+.tab Label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:hover {
+    -fx-background-color: #0D47A1;
+}
+
+.tab:selected {
+    -fx-background-color: #1E88E5;
+    -fx-text-fill: #ffffff;
+}
+
+
+
+
+/* --- TableView Styling --- */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1976D2;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-table-cell-border-color: #BBDEFB;
+    -fx-padding: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);
+    -fx-font-size: 12px;
+    -fx-text-fill: #0D47A1;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1976D2;
+    -fx-background-radius: 6px 6px 0 0;
+}
+
+.table-view .column-header, 
+.table-view .filler {
+    -fx-background-color: #1976D2;
+    -fx-size: 32px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent transparent #1976D2 transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #E3F2FD;
+    -fx-border-color: transparent;
+    -fx-padding: 4px;
+}
+
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #42A5F5;
+    -fx-text-fill: white;
+}
+
+.table-view .table-cell {
+    -fx-padding: 6px;
+    -fx-text-fill: #0D47A1;
+}
+
+.table-view .table-cell:selected {
+    -fx-text-fill: white;
+}
+
+
+
+
+
+
+
+/* --- Custom Alert (matching .filters) --- */
+.custom-alert {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0.0, 0, 2);
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Header Panel (matches .filters background) */
+.custom-alert .header-panel {
+    -fx-background-color: linear-gradient(to right, #1565C0, #1976D2);
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-padding: 12 16;
+}
+
+/* Header Text */
+.custom-alert .header-panel .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* Content Area */
+.custom-alert .content.label {
+    -fx-text-fill: #0D47A1;
+    -fx-padding: 14px 18px;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+/* Buttons */
+.custom-alert .button {
+    -fx-background-color: #42A5F5;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 6 14;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.custom-alert .button:hover {
+    -fx-background-color: #1E88E5;
+}
+
+
+
+
+
+
+
+
+
+.tooltip {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-text-fill: #0d3b66; /* dark blue */
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 12px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 6, 0.0, 0, 2);
+    -fx-font-weight: normal;
+}
+
+
+.statsPane .label{
+    -fx-text-fill: #3D5262;
+    -fx-font-weight: bold;
+}
+
+
+
+
+
+/* --- Chart Styling (Bar + Line) --- */
+
+/* Bar Chart Colors */
+.chart-bar.series0 { -fx-bar-fill: #A7DBF9; }
+.chart-bar.series1 { -fx-bar-fill: #68BBEB; }
+.chart-bar.series2 { -fx-bar-fill: #4B8CB2; }
+.chart-bar.series3 { -fx-bar-fill: #28688D; }
+.chart-bar.series4 { -fx-bar-fill: #0F5076; }
+.chart-bar.series5 { -fx-bar-fill: #05283C; }
+
+/* Line Chart Line Colors */
+.chart-series-line.series0 { -fx-stroke: #A7DBF9; }
+.chart-series-line.series1 { -fx-stroke: #68BBEB; }
+.chart-series-line.series2 { -fx-stroke: #4B8CB2; }
+.chart-series-line.series3 { -fx-stroke: #28688D; }
+.chart-series-line.series4 { -fx-stroke: #0F5076; }
+.chart-series-line.series5 { -fx-stroke: #05283C; }
+
+/* Line Chart Dots (Symbols) */
+.chart-line-symbol.series0 { -fx-background-color: #A7DBF9, white; }
+.chart-line-symbol.series1 { -fx-background-color: #68BBEB, white; }
+.chart-line-symbol.series2 { -fx-background-color: #4B8CB2, white; }
+.chart-line-symbol.series3 { -fx-background-color: #28688D, white; }
+.chart-line-symbol.series4 { -fx-background-color: #0F5076, white; }
+.chart-line-symbol.series5 { -fx-background-color: #05283C, white; }
+
+.chart-line-content {
+    -fx-padding: 10;
+    -fx-pref-width: 400px;
+    -fx-pref-height: 400px;
+}
+
+/* Optional: make chart background clean */
+.chart-plot-background {
+    -fx-background-color: white;
+}
+
+.chart {
+    -fx-background-color: transparent;
+}
