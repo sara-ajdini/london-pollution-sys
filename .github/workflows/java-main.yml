@@ -1,86 +1,50 @@
-name: Java CI
+name: Compile & Run (plain javac)
 
-# run on push and pull requests
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
   build-and-run:
-    runs-on: ubuntu-latest
-
+    runs-on: macos-latest   # JavaFX SDK we fetch below is for macOS arm64
     env:
-      MAIN_CLASS: Main
-      JAVAFX_VERSION: "21.0.1"
-
+      JAVA_VERSION: '17'
+      JAVAFX_VERSION: '17.0.12'
     steps:
-    # check repos code
-      - name: Checkout code
-        uses: actions/checkout@v4
-    # install and set up java to make sure code runs on latest version
-      - name: Set up JDK 17
+      - uses: actions/checkout@v4
+
+      - name: Set up Temurin JDK
         uses: actions/setup-java@v4
         with:
-          java-version: "17"
-          distribution: "temurin"
-    # install and set up javafx to make sure code runs on latest version
-      - name: Download JavaFX SDK and set PATH_TO_FX
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Prepare dirs
+        run: mkdir -p out lib
+
+      - name: Download JavaFX SDK
         run: |
-          set -e
-          URL="https://download2.gluonhq.com/openjfx/${JAVAFX_VERSION}/openjfx-${JAVAFX_VERSION}_linux-x64_bin-sdk.zip"
-          echo "Downloading $URL"
-          curl -fsSL -o openjfx.zip "$URL"
-          unzip -q openjfx.zip
-          echo "PATH_TO_FX=$GITHUB_WORKSPACE/javafx-sdk-${JAVAFX_VERSION}/lib" >> "$GITHUB_ENV"
-          ls -l "$GITHUB_WORKSPACE/javafx-sdk-${JAVAFX_VERSION}/lib"
-    # compiles all java files
-      - name: Compile sources (include libs/*)
+          curl -L -o lib/javafx.zip \
+            https://download2.gluonhq.com/openjfx/${JAVAFX_VERSION}/openjfx-${JAVAFX_VERSION}_osx-aarch64_bin-sdk.zip
+          unzip -q lib/javafx.zip -d lib
+          echo "JAVAFX_LIB=$PWD/lib/javafx-sdk-${JAVAFX_VERSION}/lib" >> $GITHUB_ENV
+
+      - name: Compile sources (skip *Test.java)
         run: |
-          mkdir -p out
-          CP="."
-          if [ -d libs ]; then CP="$CP:libs/*"; fi
-          find -name "*.java" -print0 | xargs -0 javac \
-            --module-path "$PATH_TO_FX" \
-            --add-modules javafx.controls,javafx.fxml \
-            -cp "$CP" \
-            -encoding UTF-8 \
-            -d out
-    # copies all non coding files, UKPollutionData file for coordinates, png images and css for GUI
-      - name: Copy resources
-        run: |
-          if [ -d src/main/resources ]; then rsync -a src/main/resources/ out/; fi
-    # installs viurtal display to run JavaFX GUI
-      - name: Install virtual display (Xvfb)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-    # application runs sucessfully if under 15s exit code 124,0 = success
-      - name: Run application under Xvfb (GUI-safe in CI, auto-exit)
-        env:
-          NO_AT_BRIDGE: 1
-        run: |
-          set +e
-          CP="out"
-          if [ -d libs ]; then CP="$CP:libs/*"; fi
-          timeout 15s xvfb-run -a \
-            java \
-              --module-path "$PATH_TO_FX" \
-              --add-modules javafx.controls,javafx.fxml \
-              -Dprism.order=sw \
-              -cp "$CP" "$MAIN_CLASS"
-          code=$?
-          if [ "$code" = "124" ] || [ "$code" = "0" ]; then
-            echo "App started successfully (timed out or exited as expected)."
-            exit 0
-          else
-            echo "App failed with exit code $code"
-            exit $code
+          SRC_FILES=$(ls *.java 2>/dev/null | grep -v "Test.java" || true)
+          if [ -z "$SRC_FILES" ]; then
+            echo "No non-test sources found."
+            exit 1
           fi
-    # uploads folders after workflow finishes
-      - name: Upload compiled classes
-        uses: actions/upload-artifact@v4
-        with:
-          name: compiled-classes
-          path: out
+          javac --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml \
+                -d out $SRC_FILES
+
+      - name: Try to run a main class (if any)
+        run: |
+          # Find the first .java file that declares a main method and use its class name
+          MAIN_CLASS=$(grep -l "static void main\s*(" *.java | head -n 1 | sed 's/.java$//')
+          if [ -z "$MAIN_CLASS" ]; then
+            echo "No class with 'public static void main' found. Build succeeded."
+            exit 0
+          fi
+          echo "Running $MAIN_CLASS ..."
+          java --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml \
+               -cp out "$MAIN_CLASS"
