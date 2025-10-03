@@ -7,7 +7,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     env:
       JFX_VERSION: "17.0.12"
 
@@ -48,7 +47,7 @@ jobs:
           javac \
             --release 17 \
             --module-path "$JFX_LIB" \
-            --add-modules javafx.controls,javafx.fxml \
+            --add-modules javafx.controls,javafx.fxml,javafx.graphics \
             -cp "lib/junit-console.jar:lib/json.jar" \
             -d out \
             $SRC_FILES
@@ -57,13 +56,24 @@ jobs:
         shell: bash
         run: |
           cat > out/CiTestRunner.java <<'EOF'
+          import javafx.application.Platform;
           public class CiTestRunner {
             public static void main(String[] args) {
-              // Headless JavaFX in CI
+              // Headless-ish settings to avoid GPU/display requirements
               System.setProperty("javafx.platform", "Monocle");
               System.setProperty("monocle.platform", "Headless");
               System.setProperty("prism.order", "sw");
-              new javafx.embed.swing.JFXPanel(); // init toolkit
+
+              // Initialise JavaFX Toolkit (no Swing needed)
+              final Object lock = new Object();
+              synchronized (lock) {
+                Platform.startup(() -> {
+                  synchronized (lock) { lock.notify(); }
+                });
+                try { lock.wait(); } catch (InterruptedException ignored) {}
+              }
+
+              // Run JUnit Console
               org.junit.platform.console.ConsoleLauncher.main(new String[]{"--scan-class-path"});
             }
           }
@@ -71,17 +81,17 @@ jobs:
           javac \
             --release 17 \
             --module-path "$JFX_LIB" \
-            --add-modules javafx.controls,javafx.fxml \
+            --add-modules javafx.controls,javafx.fxml,javafx.graphics \
             -cp "out:lib/junit-console.jar:lib/json.jar" \
             -d out \
             out/CiTestRunner.java
           rm out/CiTestRunner.java
 
-      - name: Run tests (headless JavaFX)
+      - name: Run tests (JavaFX initialised)
         shell: bash
         run: |
           java \
             --module-path "$JFX_LIB" \
-            --add-modules javafx.controls,javafx.fxml \
+            --add-modules javafx.controls,javafx.fxml,javafx.graphics \
             -cp "out:lib/junit-console.jar:lib/json.jar" \
             CiTestRunner
