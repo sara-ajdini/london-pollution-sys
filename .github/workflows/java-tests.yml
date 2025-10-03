@@ -6,7 +6,10 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+
+    env:
+      JFX_VERSION: "17.0.12"
 
     steps:
       - name: Checkout
@@ -18,11 +21,12 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Install JavaFX (OpenJFX) via Homebrew
+      - name: Download JavaFX SDK (Linux x64)
         run: |
-          brew update
-          brew install openjfx
-          echo "JFX_LIB=$(brew --prefix)/opt/openjfx/lib" >> $GITHUB_ENV
+          curl -L -o openjfx.zip \
+            https://download2.gluonhq.com/openjfx/${JFX_VERSION}/openjfx-${JFX_VERSION}_linux-x64_bin-sdk.zip
+          unzip -q openjfx.zip
+          echo "JFX_LIB=$PWD/javafx-sdk-${JFX_VERSION}/lib" >> $GITHUB_ENV
 
       - name: Download JUnit Console & org.json
         run: |
@@ -36,13 +40,11 @@ jobs:
         shell: bash
         run: |
           mkdir -p out
-          # All .java files (src + tests in repo root)
           SRC_FILES=$(ls *.java 2>/dev/null || true)
           if [ -z "$SRC_FILES" ]; then
             echo "No .java files found in repo root."
             exit 1
           fi
-
           javac \
             --release 17 \
             --module-path "$JFX_LIB" \
@@ -56,19 +58,16 @@ jobs:
         run: |
           cat > out/CiTestRunner.java <<'EOF'
           public class CiTestRunner {
-            public static void main(String[] args) throws Exception {
-              // Headless JavaFX on CI
+            public static void main(String[] args) {
+              // Headless JavaFX in CI
               System.setProperty("javafx.platform", "Monocle");
               System.setProperty("monocle.platform", "Headless");
               System.setProperty("prism.order", "sw");
-              // Trigger toolkit init without changing project code
-              new javafx.embed.swing.JFXPanel();
-              // Delegate to JUnit Console to run all tests on classpath
+              new javafx.embed.swing.JFXPanel(); // init toolkit
               org.junit.platform.console.ConsoleLauncher.main(new String[]{"--scan-class-path"});
             }
           }
           EOF
-          # Compile the bootstrap against already compiled classes
           javac \
             --release 17 \
             --module-path "$JFX_LIB" \
