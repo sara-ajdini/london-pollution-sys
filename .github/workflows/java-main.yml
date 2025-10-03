@@ -4,10 +4,11 @@ on: [push, pull_request]
 
 jobs:
   build-and-run:
-    runs-on: macos-latest   # JavaFX SDK we fetch below is for macOS arm64
+    runs-on: macos-latest
     env:
       JAVA_VERSION: '17'
       JAVAFX_VERSION: '17.0.12'
+      ORG_JSON_VERSION: '20240303'
     steps:
       - uses: actions/checkout@v4
 
@@ -27,6 +28,11 @@ jobs:
           unzip -q lib/javafx.zip -d lib
           echo "JAVAFX_LIB=$PWD/lib/javafx-sdk-${JAVAFX_VERSION}/lib" >> $GITHUB_ENV
 
+      - name: Download org.json jar
+        run: |
+          curl -L -o lib/json.jar \
+            https://repo1.maven.org/maven2/org/json/json/${ORG_JSON_VERSION}/json-${ORG_JSON_VERSION}.jar
+
       - name: Compile sources (skip *Test.java)
         run: |
           SRC_FILES=$(ls *.java 2>/dev/null | grep -v "Test.java" || true)
@@ -34,17 +40,18 @@ jobs:
             echo "No non-test sources found."
             exit 1
           fi
-          javac --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml \
+          javac -cp lib/json.jar \
+                --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml \
                 -d out $SRC_FILES
 
       - name: Try to run a main class (if any)
         run: |
-          # Find the first .java file that declares a main method and use its class name
           MAIN_CLASS=$(grep -l "static void main\s*(" *.java | head -n 1 | sed 's/.java$//')
           if [ -z "$MAIN_CLASS" ]; then
             echo "No class with 'public static void main' found. Build succeeded."
             exit 0
           fi
           echo "Running $MAIN_CLASS ..."
-          java --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml \
-               -cp out "$MAIN_CLASS"
+          java -cp "out:lib/json.jar" \
+               --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml \
+               "$MAIN_CLASS"
