@@ -41,7 +41,7 @@ jobs:
           mkdir -p out
           CP="."
           if [ -d libs ]; then CP="$CP:libs/*"; fi
-          find src/main/java -name "*.java" -print0 | xargs -0 javac \
+          find -name "*.java" -print0 | xargs -0 javac \
             --module-path "$PATH_TO_FX" \
             --add-modules javafx.controls,javafx.fxml \
             -cp "$CP" \
